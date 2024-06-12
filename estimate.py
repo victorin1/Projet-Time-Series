@@ -38,7 +38,7 @@ def estimate(test_data, model, post_activation, out_dim, batch_size, window_slid
                     # Call mini-batch data.
                     x = torch.Tensor(_test_data[i:i+batch_sliding].copy()).reshape(n_batch, window_size, -1).to(device)
                     
-                    # Evaludate and record errors.
+                    # evaluate and record errors.
                     y = post_activation(model(x))
                     _output_values[i:i+batch_sliding] += y.view(-1, n_column)
                     n_overlap[i:i+batch_sliding] += 1
@@ -63,7 +63,7 @@ def estimate(test_data, model, post_activation, out_dim, batch_size, window_slid
                 # Reconstruct data.
                 x = torch.stack(x).to(device)
 
-                # Evaludate and record errors.
+                # evaluate and record errors.
                 y = post_activation(model(x))
                 for i, j in enumerate(list(range(first, last-1, window_sliding)) + [last-1]):
                     _output_values[j:j+window_size] += y[i]
